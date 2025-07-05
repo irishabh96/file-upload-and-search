@@ -10,7 +10,7 @@ const FileList = ({ files, onSelectFile }) => {
             <li
               key={file.ID}
               onClick={() => onSelectFile(file)}
-              className="cursor-pointer p-2 hover:bg-gray-100 rounded"
+              className="cursor-pointer p-2 hover:bg-gray-100 rounded break-all border border-gray-200 mt-2"
             >
               {file.Name}
             </li>

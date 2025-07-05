@@ -32,6 +32,7 @@ const Upload = ({ onUploadSuccess }) => {
       <h2 className="text-xl font-bold mb-2">Upload</h2>
       <form onSubmit={handleUpload} className="flex items-center">
         <input
+          accept=".txt,text/plain,text/csv,text/html,text/css,text/javascript,application/json,application/xml,text/markdown"
           required
           type="file"
           onChange={handleFileChange}
