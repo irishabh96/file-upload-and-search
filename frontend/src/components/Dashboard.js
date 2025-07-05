@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Upload from "./Upload";
@@ -12,8 +12,7 @@ const Dashboard = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [fileContent, setFileContent] = useState("");
   const navigate = useNavigate();
-
-  const fetchFiles = async () => {
+  const fetchFiles = useCallback(async () => {
     try {
       const response = await axios.get("/api/files");
       setFiles(response.data);
@@ -23,11 +22,11 @@ const Dashboard = () => {
       }
       console.error("Error fetching files:", error);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [fetchFiles]);
 
   const handleFileSelect = async (file) => {
     setSelectedFile(file);
@@ -41,7 +40,10 @@ const Dashboard = () => {
   };
 
   const handleSearch = async (term) => {
-    if (!selectedFile) return;
+    if (!term) {
+      setSearchResults([]);
+      return;
+    }
 
     try {
       const response = await axios.get(
@@ -54,12 +56,21 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
       <Upload onUploadSuccess={fetchFiles} />
-      <FileList files={files} onSelectFile={handleFileSelect} />
-      {selectedFile && <Search onSearch={handleSearch} />}
-      <FilePreview fileContent={fileContent} searchResults={searchResults} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div className="col-span-1">
+          <FileList files={files} onSelectFile={handleFileSelect} />
+        </div>
+        <div className="col-span-2">
+          {selectedFile && <Search onSearch={handleSearch} />}
+          <FilePreview
+            fileContent={fileContent}
+            searchResults={searchResults}
+          />
+        </div>
+      </div>
     </div>
   );
 };

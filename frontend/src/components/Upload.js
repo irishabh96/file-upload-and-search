@@ -8,7 +8,8 @@ const Upload = ({ onUploadSuccess }) => {
     setFile(e.target.files[0]);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
 
@@ -20,17 +21,28 @@ const Upload = ({ onUploadSuccess }) => {
       });
       alert("File uploaded successfully");
       onUploadSuccess();
+      setFile(null);
     } catch (error) {
       console.error("Upload failed", error);
     }
   };
 
   return (
-    <div>
-      <h2>Upload</h2>
-      <form onSubmit={handleUpload}>
-        <input required type="file" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
+    <div className="mb-4">
+      <h2 className="text-xl font-bold mb-2">Upload</h2>
+      <form onSubmit={handleUpload} className="flex items-center">
+        <input
+          required
+          type="file"
+          onChange={handleFileChange}
+          className="border rounded-l-lg p-2 flex-grow"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg"
+        >
+          Upload
+        </button>
       </form>
     </div>
   );

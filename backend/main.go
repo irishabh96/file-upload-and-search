@@ -64,8 +64,6 @@ func worker() {
 	}
 	for {
 		result, err := rdb.BRPop(context.Background(), 0, "upload-queue").Result()
-		print("result")
-		print(result)
 		if err != nil {
 			fmt.Println("Error processing queue:", err)
 			continue

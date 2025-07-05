@@ -70,7 +70,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	expirationTime := time.Now().Add(5 * time.Minute)
+	expirationTime := time.Now().Add(30 * time.Minute)
 	claims := &Claims{
 		UserID: foundUser.ID,
 		StandardClaims: jwt.StandardClaims{
@@ -209,7 +209,6 @@ func filesHandler(w http.ResponseWriter, r *http.Request) {
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("q")
-	print(query)
 	if query == "" {
 		http.Error(w, "Missing search query", http.StatusBadRequest)
 		return
@@ -247,7 +246,6 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	for i, line := range lines {
 		if strings.Contains(strings.ToLower(line), strings.ToLower(query)) {
 			startIndex := strings.Index(strings.ToLower(line), strings.ToLower(query))
-			print("startIndex %d", startIndex)
 			endIndex := startIndex + len(query)
 			results = append(results, SearchResult{
 				Line:       line,
