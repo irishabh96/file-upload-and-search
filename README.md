@@ -1,7 +1,4 @@
-# BoWott: A Document Search and Analysis Platform
-
-BoWott is a web-based application that allows users to upload, search, and analyze documents. It provides a simple and intuitive interface for managing and extracting insights from your files.
-
+# BoWott: A Document Search Platform
 
 ### System Components
 
