@@ -1,0 +1,13 @@
+# Ignore node_modules
+node_modules
+npm-debug.log
+
+# Ignore .git
+.git
+.gitignore
+
+# Ignore build artifacts
+build
+dist
+dump.rdb
+tmp
